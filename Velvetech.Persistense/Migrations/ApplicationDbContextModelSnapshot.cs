@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Velvetech.Persistense;
 
 namespace Velvetech.Persistense.Migrations
@@ -15,19 +15,19 @@ namespace Velvetech.Persistense.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Velvetech.Domain.Entities.Group", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(25)")
+                        .HasColumnType("character varying(25)")
                         .HasMaxLength(25);
 
                     b.HasKey("Id");
@@ -39,34 +39,33 @@ namespace Velvetech.Persistense.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(40)")
+                        .HasColumnType("character varying(40)")
                         .HasMaxLength(40);
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Identifier")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(40)")
+                        .HasColumnType("character varying(40)")
                         .HasMaxLength(40);
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("nvarchar(60)")
+                        .HasColumnType("character varying(60)")
                         .HasMaxLength(60);
 
                     b.HasKey("Id");
 
                     b.HasIndex("Identifier")
-                        .IsUnique()
-                        .HasFilter("[Identifier] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Students");
                 });
@@ -74,10 +73,10 @@ namespace Velvetech.Persistense.Migrations
             modelBuilder.Entity("Velvetech.Domain.Entities.StudentGroup", b =>
                 {
                     b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("StudentId", "GroupId");
 

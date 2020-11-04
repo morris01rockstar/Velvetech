@@ -13,5 +13,6 @@ namespace Velvetech.Domain.Interfaces
 		Task<Group> FindFirstAsync(Expression<Func<Group, bool>> predicate);
 		Group Add(Group group);
 		Group Remove(Group group);
+		void Update(Group group);
 	}
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Velvetech.Persistense.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace Velvetech.Persistense.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentGroup",
+                name: "StudentGroups",
                 columns: table => new
                 {
                     StudentId = table.Column<Guid>(nullable: false),
@@ -44,15 +44,15 @@ namespace Velvetech.Persistense.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentGroup", x => new { x.StudentId, x.GroupId });
+                    table.PrimaryKey("PK_StudentGroups", x => new { x.StudentId, x.GroupId });
                     table.ForeignKey(
-                        name: "FK_StudentGroup_Groups_GroupId",
+                        name: "FK_StudentGroups_Groups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentGroup_Students_StudentId",
+                        name: "FK_StudentGroups_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -60,22 +60,21 @@ namespace Velvetech.Persistense.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentGroup_GroupId",
-                table: "StudentGroup",
+                name: "IX_StudentGroups_GroupId",
+                table: "StudentGroups",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_Identifier",
                 table: "Students",
                 column: "Identifier",
-                unique: true,
-                filter: "[Identifier] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentGroup");
+                name: "StudentGroups");
 
             migrationBuilder.DropTable(
                 name: "Groups");

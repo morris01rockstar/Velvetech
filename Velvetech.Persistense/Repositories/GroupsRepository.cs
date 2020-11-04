@@ -31,7 +31,6 @@ namespace Velvetech.Persistense.Repositories
 		public async Task<Group> FindFirstAsync(Expression<Func<Group, bool>> predicate)
 		{
 			return await _context.Groups
-				//.Include(s => s.StudentGroups)
 				.Where(predicate)
 				.FirstOrDefaultAsync();
 		}
@@ -41,6 +40,11 @@ namespace Velvetech.Persistense.Repositories
 			return _context.Groups
 				.Include(g => g.StudentGroups)
 				.ThenInclude(g => g.Student);
+		}
+
+		public void Update(Group group)
+		{
+			_context.Entry(group).State = EntityState.Modified;
 		}
 	}
 }

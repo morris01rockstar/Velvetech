@@ -112,24 +112,8 @@ namespace Velvetech.Presentation.Controllers
 				return BadRequest();
 			}
 
-			//_context.Entry(student).State = EntityState.Modified;
-
-			//try
-			//{
-			//	await _context.SaveChangesAsync();
-			//}
-			//catch (DbUpdateConcurrencyException)
-			//{
-			//	if (!StudentExists(id))
-			//	{
-			//		return NotFound();
-			//	}
-			//	else
-			//	{
-			//		throw;
-			//	}
-			//}
-
+			await _studentManager.UpdateAsync(student);
+			
 			return NoContent();
 		}
 	}

@@ -14,5 +14,6 @@ namespace Velvetech.Domain.Interfaces
 		Task<Student> FindFirstAsync(Expression<Func<Student, bool>> predicate);
 		Student Add(Student student);
 		Student Remove(Student student);
+		void Update(Student student);
 	}
 }

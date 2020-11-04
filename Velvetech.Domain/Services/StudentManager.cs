@@ -43,6 +43,7 @@ namespace Velvetech.Domain.Services
 
 		public async Task UpdateAsync(Student student)
 		{
+			_unitOfWork.StudentsRepository.Update(student);
 			await _unitOfWork.SaveChangesAsync();
 		}
 

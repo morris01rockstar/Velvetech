@@ -43,5 +43,10 @@ namespace Velvetech.Persistense.Repositories
 				.Include(s => s.StudentGroups)
 				.ThenInclude(sc => sc.Group);
 		}
+
+		public void Update(Student student)
+		{
+			_context.Entry(student).State = EntityState.Modified;
+		}
 	}
 }
