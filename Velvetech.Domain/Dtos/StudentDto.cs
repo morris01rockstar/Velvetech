@@ -1,29 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace Velvetech.Domain.Entities
+namespace Velvetech.Domain.Dtos
 {
-	public class Student
+	public class StudentDto
 	{
 		public Guid Id { get; set; }
-
-		[Required]
 		public string Gender { get; set; }
-
-		[Required]
-		[MaxLength(40)]
 		public string LastName { get; set; }
-
-		[Required]
-		[MaxLength(40)]
 		public string FirstName { get; set; }
-
-		[MaxLength(60)]
 		public string MiddleName { get; set; }
-
 		public string Identifier { get; set; }
-
-		public List<StudentGroup> StudentGroups { get; set; }
+		public IEnumerable<string> Groups { get; set; }
 	}
 }
