@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using Velvetech.Domain.Interfaces;
 using Velvetech.Domain.Services;
 using Velvetech.Persistense;
@@ -23,10 +24,12 @@ namespace Velvetech.Presentation
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<ApplicationDbContext>(options =>
-					options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+					options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? Configuration.GetConnectionString("DefaultConnection")));//(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IStudentManager, StudentManager>();
+			services.AddScoped<IGroupManager, GroupManager>();
+
 
 			services.AddControllers();
 
@@ -59,6 +62,11 @@ namespace Velvetech.Presentation
 			{
 				endpoints.MapControllers();
 			});
+
+			using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			{
+				serviceScope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+			}
 		}
 	}
 }

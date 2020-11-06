@@ -67,5 +67,10 @@ namespace Velvetech.Domain.Services
 
 			await _unitOfWork.SaveChangesAsync();
 		}
+
+		public bool IsInGroup(Student student, Group group)
+		{
+			return student.StudentGroups.Any(sg => sg.GroupId == group.Id);
+		}
 	}
 }

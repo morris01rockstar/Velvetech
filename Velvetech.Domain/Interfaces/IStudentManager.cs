@@ -17,5 +17,6 @@ namespace Velvetech.Domain.Interfaces
 		Task<Student> FindByIdAsync(Guid studentId);
 		Task AddToGroupAsync(Student student, Group group);
 		Task RemoveFromGroupAsync(Student student, Group group);
+		bool IsInGroup(Student student, Group group);
 	}
 }

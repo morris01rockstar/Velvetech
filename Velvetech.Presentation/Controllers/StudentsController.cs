@@ -7,6 +7,7 @@ using Velvetech.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Velvetech.Domain.Dtos;
+using System.Collections.Generic;
 
 namespace Velvetech.Presentation.Controllers
 {
@@ -24,7 +25,8 @@ namespace Velvetech.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Get(string gender, string lastName, string firstName, string middleName, string identifier, string groupName)
+		public async Task<ActionResult<List<StudentDto>>> Get(string gender, string lastName, string firstName, 
+			string middleName, string identifier, string groupName, int page = 1, int pageSize = 10)
 		{
 			var students = _studentManager.Students();
 
@@ -58,7 +60,7 @@ namespace Velvetech.Presentation.Controllers
 				students = students.Where(s => s.Groups.Contains(groupName));
 			}
 
-			return Ok(await students.ToListAsync());
+			return await students.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 		}
 
 		[HttpGet("{id}")]
