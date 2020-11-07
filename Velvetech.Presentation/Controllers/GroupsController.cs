@@ -34,6 +34,9 @@ namespace Velvetech.Presentation.Controllers
 				groups = groups.Where(g => g.Name == groupName);
 			}
 
+			if (page <= 0)
+				page = 1;
+
 			return await groups.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 		}
 

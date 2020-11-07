@@ -26,7 +26,7 @@ namespace Velvetech.Presentation.Controllers
 			if (student == null)
 				return NotFound("Student was not found");
 
-			var group = await _groupManager.FindByNameAsync(studentGroup.RoleName);
+			var group = await _groupManager.FindByNameAsync(studentGroup.GroupName);
 
 			if (group == null)
 				return NotFound("Group was not found");
@@ -47,7 +47,7 @@ namespace Velvetech.Presentation.Controllers
 			if (student == null)
 				return NotFound("Student was not found");
 
-			var group = await _groupManager.FindByNameAsync(studentGroup.RoleName);
+			var group = await _groupManager.FindByNameAsync(studentGroup.GroupName);
 
 			if (group == null)
 				return NotFound("Group was not found");

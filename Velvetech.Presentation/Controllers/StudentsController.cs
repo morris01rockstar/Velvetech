@@ -60,6 +60,9 @@ namespace Velvetech.Presentation.Controllers
 				students = students.Where(s => s.Groups.Contains(groupName));
 			}
 
+			if (page <= 0)
+				page = 1;
+
 			return await students.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 		}
 

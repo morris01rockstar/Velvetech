@@ -7,6 +7,6 @@ namespace Velvetech.Domain.Dtos
 	public class StudentGroupDto
 	{
 		public Guid StudentId { get; set; }
-		public string RoleName { get; set; }
+		public string GroupName { get; set; }
 	}
 }
